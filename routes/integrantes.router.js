@@ -1,4 +1,5 @@
 const IntegrantesController = require('../controllers/integrantes.controller');
+const authRequired = require('../middleware/validateToken.js');
 const express = require('express');
 
 const router = express.Router();
@@ -16,7 +17,7 @@ router.get('/', async function(req, res, next) {
         .then((integrantes) => res.send(integrantes));
 });
 
-router.post('/', async function(req, res, next) {
+router.post('/', authRequired, async function(req, res, next) {
     if (req.body.integrante && req.body.equipo) {
         const { integrante, equipo } = req.body;
 
